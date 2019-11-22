@@ -17,6 +17,7 @@ void Familiar::update_shiki() {
 
 void Familiar::damage_shiki(BullP *pbul) {
 	if (fl >= 10) {
+		dmg = 0;
 		for (int i = 0; i < BullP::CSHOT_MAX; i++) {
 			if (pbul[i].fl > 0) {
 				float dx = pbul[i].bx - x;
@@ -24,6 +25,7 @@ void Familiar::damage_shiki(BullP *pbul) {
 				if (dx * dx + dy * dy < ran * ran) {
 					pbul[i].fl = 0;
 					hp -= pbul[i].power;
+					dmg += pbul[i].power;
 					if (hp <= 0) fl = 0;
 				}
 			}

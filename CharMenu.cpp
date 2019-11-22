@@ -14,7 +14,7 @@ CharMenu::CharMenu()
 void CharMenu::select() {
 	if (Pad::getIns()->get(ePad::up) == 1 && num > 0) num--;
 	else if (Pad::getIns()->get(ePad::down) == 1 && num < Player::CHAR_NUM - 1) num++;
-	const char name[Player::CHAR_NUM][WORD_MAX] = { "西行響希", "九鬼妖子", "神爪緑" };
+	const char name[Player::CHAR_NUM][WORD_MAX] = { "ホーミングショット", "フォーワードショット", "ワイドショット" };
 	DrawRotaGraphF((float)Define::CENTER_X, (float)Define::CENTER_Y, 1.0, 0.0, char_img[num], TRUE);
 	for (int i = 0; i < Player::CHAR_NUM; i++) {
 		int col = i == num ? 255 : 100;

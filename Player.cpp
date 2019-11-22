@@ -165,6 +165,10 @@ void Player::move()
 		moveY /= 3;
 		slow_cnt++;
 	}
+	if (bomb_flag == 1) {
+		moveX /= 4;
+		moveY /= 4;
+	}
 	else slow_cnt = 0;
 	
 	if (moveX + _x < Define::IN_X) {//¶˜g‚æ‚è¶‚È‚ç

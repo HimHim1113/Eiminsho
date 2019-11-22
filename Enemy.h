@@ -24,7 +24,7 @@ private:
 
 	float _x, _y, vx, vy, angle, speed;
 	int flag, hit_flag, count, time, hp, hp_max, img, person_num, spell_num, move_flag, move_count, level, graze, change;
-	int img_enemy[ENEMY_MAX], img_back[2], img_enex, img_bullet[20][10], img_lazer[3][10], img_lazer_root[3][10], image_shiki[2]; //’e–‹—p‰æ‘œ
+	int img_enemy[ENEMY_MAX], img_back[2], img_enex, img_bullet[20][10], img_lazer[3][10], img_lazer_root[3][10], image_shiki[5]; //’e–‹—p‰æ‘œ
 	const float hitrange_bullet[20];
 	int sound_shot1, sound_shot2, sound_death, sound_hit, sound_fihit, sound_time, sound_lazer;
 	char str[ENEMY_PATTERN_MAX][100];

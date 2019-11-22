@@ -203,7 +203,7 @@ void Enemy::enemy_pattern0002(float px, float py) {
 				bul[b].knd = 15;
 				bul[b].col = 2;
 				bul[b].till = 100;
-				bul[a].grz = 1;
+				bul[b].grz = 1;
 				bul[b].cnt = 0;
 				bul[b].sta = 0;
 			}
@@ -275,7 +275,7 @@ void Enemy::enemy_pattern0003(float px, float py) {
 			fam[a].spd = 0.0f;
 			fam[a].cnt = 0;
 			fam[a].knd = 0;
-			fam[a].img = 1;
+			fam[a].img = 0;
 			fam[a].sta = 0;
 		}
 		shiki_num = a;
@@ -375,7 +375,7 @@ void Enemy::enemy_pattern0004(float px, float py) {
 			fam[a].spd = 0.0f;
 			fam[a].cnt = 0;
 			fam[a].knd = 0;
-			fam[a].img = 1;
+			fam[a].img = 0;
 			fam[a].sta = 0;
 		}
 		shiki_num = a;
@@ -510,13 +510,13 @@ void Enemy::enemy_pattern0005(float px, float py) {
 		}
 		DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
 	}
-
+	/*
 	for (int i = 0; i < BULLET_MAX; i++) {
 		if (bul[i].fl >= 1) {
 			
 		}
 	}
-
+	*/
 	move_bull();
 }
 
@@ -731,7 +731,7 @@ void Enemy::enemy_pattern0008(float px, float py) {
 			if (bul[num[i]].fl == 3) {
 				if ((a = search_lazer()) != -1) {
 					laz[a].col = 0;//íeÇÃêF
-					laz[a].knd = 1;//íeÇÃéÌóﬁ
+					laz[a].knd = 0;//íeÇÃéÌóﬁ
 					laz[a].startpt.x = bul[num[i]].x;//ï`âÊÇµénÇﬂÇÈç¿ïW
 					laz[a].startpt.y = bul[num[i]].y;
 					laz[a].ang = atan2f(py - laz[a].startpt.y, px - laz[a].startpt.x);//äpìx
@@ -805,7 +805,7 @@ void Enemy::enemy_pattern0008(float px, float py) {
 	move_bull();
 }
 
-//
+//OK
 void Enemy::enemy_pattern0009(float px, float py) {
 	if (flag == 0) {
 		time = 40 + level * 10;
@@ -817,27 +817,31 @@ void Enemy::enemy_pattern0009(float px, float py) {
 		move_flag = 1;
 	}
 
-	int shot_count, shot_num;
+	int shot_num[4];
 	switch (level) {
 	case 0:
-		shot_count = 10;
-		shot_num = 0;
+		shot_num[0] = 4;
+		shot_num[1] = 3;
+		shot_num[2] = 3;
+		shot_num[3] = 1;
 		break;
 	case 1:
-		shot_count = 5;
-		shot_num = 4;
+		shot_num[0] = 5;
+		shot_num[1] = 5;
+		shot_num[2] = 5;
+		shot_num[3] = 1;
 		break;
 	case 2:
-		shot_count = 3;
-		shot_num = 6;
-		break;
-	case 3:
-		shot_count = 2;
-		shot_num = 8;
+		shot_num[0] = 7;
+		shot_num[1] = 8;
+		shot_num[2] = 8;
+		shot_num[3] = 2;
 		break;
 	default:
-		shot_count = 30;
-		shot_num = 2;
+		shot_num[0] = 1;
+		shot_num[1] = 1;
+		shot_num[2] = 1;
+		shot_num[3] = 1;
 		break;
 	}
 	int a;
@@ -847,7 +851,7 @@ void Enemy::enemy_pattern0009(float px, float py) {
 	if (count % 600 <= 120) {
 		const int t = count % 600, status = count / 600 + 1;
 		if (status == 1) {
-			if (t % 5 == 0) {
+			if (t % 2 == 0) {
 				if ((a = search_bull()) >= 0) {
 					bul[a].fl = 3;
 					bul[a].x = t * Define::OUT_W / 120.0f;
@@ -863,10 +867,11 @@ void Enemy::enemy_pattern0009(float px, float py) {
 					bul[a].cnt = 0;
 					bul[a].sta = status;
 				}
+				DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
 			}
 		}
 		else if (status == 2) {
-			if (t % 3 == 0) {
+			if (t % 2 == 0) {
 				if ((a = search_bull()) >= 0) {
 					bul[a].fl = 3;
 					bul[a].x = t * Define::OUT_W / 120.0f;
@@ -882,6 +887,7 @@ void Enemy::enemy_pattern0009(float px, float py) {
 					bul[a].cnt = 0;
 					bul[a].sta = status;
 				}
+				DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
 			}
 		}
 		else if (status == 3) {
@@ -889,7 +895,7 @@ void Enemy::enemy_pattern0009(float px, float py) {
 				if ((a = search_bull()) >= 0) {
 					bul[a].fl = 3;
 					bul[a].x = t * Define::OUT_W / 120.0f;
-					bul[a].y = 300.0f * -sinf(t * Define::PI / 30.0f) + Define::CENTER_Y;
+					bul[a].y = Define::IN_H / 2.0f * -sinf(t * Define::PI / 30.0f) + Define::CENTER_Y;
 					bul[a].vx = 0.0f;
 					bul[a].vy = 0.0f;
 					bul[a].spd = 0.0f;
@@ -901,14 +907,30 @@ void Enemy::enemy_pattern0009(float px, float py) {
 					bul[a].cnt = 0;
 					bul[a].sta = status;
 				}
+				if ((a = search_bull()) >= 0) {
+					bul[a].fl = 3;
+					bul[a].x = t * Define::OUT_W / 120.0f - Define::OUT_W;
+					bul[a].y = Define::IN_H / 2.0f * -sinf(t * Define::PI / 30.0f) + Define::CENTER_Y;
+					bul[a].vx = 0.0f;
+					bul[a].vy = 0.0f;
+					bul[a].spd = 0.0f;
+					bul[a].ang = 0.0f;
+					bul[a].knd = 0;
+					bul[a].col = 1;
+					bul[a].till = 300;
+					bul[a].grz = 1;
+					bul[a].cnt = 0;
+					bul[a].sta = status;
+				}
+				DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
 			}
 		}
 		else if (status == 4) {
-			if (t % 3 == 0) {
+			if (t % 2 == 0) {
 				if ((a = search_bull()) >= 0) {
 					bul[a].fl = 3;
-					bul[a].x = 300.0f * cosf(t * Define::PI / 60.0f) + Define::CENTER_X;
-					bul[a].y = 300.0f * -sinf(t * Define::PI / 60.0f) + Define::CENTER_Y;
+					bul[a].x = Define::CENTER_X * cosf(t * Define::PI / 60.0f * 3) + Define::CENTER_X;
+					bul[a].y = Define::CENTER_X * sinf(t * Define::PI / 60.0f * 2) + Define::CENTER_Y;
 					bul[a].vx = 0.0f;
 					bul[a].vy = 0.0f;
 					bul[a].spd = 0.0f;
@@ -920,6 +942,7 @@ void Enemy::enemy_pattern0009(float px, float py) {
 					bul[a].cnt = 0;
 					bul[a].sta = status;
 				}
+				DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
 			}
 		}
 		else if (status == 5) {
@@ -954,10 +977,28 @@ void Enemy::enemy_pattern0009(float px, float py) {
 					bul[a].cnt = 0;
 					bul[a].sta = status;
 				}
+				DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
 			}
 		}
 		else if (status == 6) {
-
+			if (count % 1 == 0) {
+				if ((a = search_bull()) >= 0) {
+					bul[a].fl = 3;
+					bul[a].x = Define::CENTER_X * cosf(t * Define::PI / 60.0f * 3) + Define::CENTER_X;
+					bul[a].y = Define::CENTER_X * sinf(t * Define::PI / 60.0f * 2) + Define::CENTER_Y;
+					bul[a].vx = 0.0f;
+					bul[a].vy = 0.0f;
+					bul[a].spd = 0.0f;
+					bul[a].ang = 0.0f;
+					bul[a].knd = 0;
+					bul[a].col = 1;
+					bul[a].till = 0;
+					bul[a].grz = 1;
+					bul[a].cnt = 0;
+					bul[a].sta = status;
+				}
+				DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
+			}
 		}
 	}
 
@@ -985,8 +1026,7 @@ void Enemy::enemy_pattern0009(float px, float py) {
 						bul[i].vx = (Define::CENTER_X - bul[i].x) / 30.0f;
 						break;
 					case 3:
-						bul[i].vx = (Define::CENTER_X - bul[i].x) / 30.0f;
-						bul[i].vy = (Define::CENTER_Y - bul[i].y) / 30.0f;
+						bul[i].vx = Define::OUT_W / 60.0f;
 						break;
 					case 4:
 						bul[i].vx = (Define::CENTER_X - bul[i].x) / 30.0f;
@@ -1004,21 +1044,116 @@ void Enemy::enemy_pattern0009(float px, float py) {
 				}
 				if (count % 600 == 240) {
 					bul[i].vx = bul[i].vy = 0;
+					if (bul[i].sta == 3) {
+						if (bul[i].x > Define::OUT_W + 1) bul[i].fl = 0;
+					}
 				}
 				if (count % 600 == 300) {
-					bul[i].spd = GetRand(100) / 100.0f + 1.0f;
-					bul[i].ang = GetRand(62831) / 10000.0f;
-					bul[i].sta = 10;
+					if (bul[i].y < Define::CENTER_X) {
+						if (bul[i].x > Define::CENTER_Y) { //èt
+							float rang = GetRand(62831) / 10000.0f;
+							for (int j = 0; j < shot_num[0]; j++) {
+								if ((a = search_bull()) >= 0) {
+									bul[a].fl = 3;
+									bul[a].x = bul[i].x;
+									bul[a].y = bul[i].y;
+									bul[a].vx = 0.0f;
+									bul[a].vy = 0.0f;
+									bul[a].spd = 1.0f;
+									bul[a].ang = Define::PI * 2.0f * j / shot_num[0] + rang;
+									bul[a].knd = 1;
+									bul[a].col = 2;
+									bul[a].till = 0;
+									bul[a].grz = 1;
+									bul[a].cnt = 0;
+									bul[a].sta = 11;
+								}
+							}
+						}
+						else { //âƒ
+							float rang = GetRand(62831) / 10000.0f;
+							for (int j = 0; j < shot_num[1]; j++) {
+								if ((a = search_bull()) >= 0) {
+									bul[a].fl = 3;
+									bul[a].x = bul[i].x;
+									bul[a].y = bul[i].y;
+									bul[a].vx = 0.0f;
+									bul[a].vy = 0.0f;
+									bul[a].spd = 1.0f;
+									bul[a].ang = Define::PI * 2.0f * j / shot_num[1] + rang;
+									bul[a].knd = 9;
+									bul[a].col = 5;
+									bul[a].till = 0;
+									bul[a].grz = 1;
+									bul[a].cnt = 0;
+									bul[a].sta = 12;
+								}
+							}
+						}
+					}
+					else {
+						if (bul[i].x < Define::CENTER_Y) { //èH
+							for (int j = 0; j < shot_num[2]; j++) {
+								if ((a = search_bull()) >= 0) {
+									bul[a].fl = 3;
+									bul[a].x = bul[i].x;
+									bul[a].y = bul[i].y;
+									bul[a].vx = 0.0f;
+									bul[a].vy = 0.0f;
+									bul[a].spd = 1.0f;
+									bul[a].ang = Define::PI * 2.0f * j / shot_num[2] + (count + GetRand(20)) / 100.0f;
+									bul[a].knd = 15;
+									bul[a].col = 3;
+									bul[a].till = 0;
+									bul[a].grz = 1;
+									bul[a].cnt = 0;
+									bul[a].sta = 13;
+								}
+							}
+						}
+						else { //ì~
+							for (int j = 0; j < shot_num[3]; j++) {
+								if ((a = search_lazer()) != -1) {
+									laz[a].col = 0;//íeÇÃêF
+									laz[a].knd = 1;//íeÇÃéÌóﬁ
+									laz[a].startpt.x = bul[i].x;//ï`âÊÇµénÇﬂÇÈç¿ïW
+									laz[a].startpt.y = bul[i].y;
+									laz[a].ang = GetRand(62831) / 10000.0f;//äpìx
+									laz[a].fl = 1;//ï\é¶Ç∑ÇÈÇ©Å@0:ÇµÇ»Ç¢Å@1:Ç∑ÇÈ
+									laz[a].cnt = 0;
+									laz[a].haba = 1.0f;//ïù
+									laz[a].sta = 0;//
+									laz[a].length = 1200.0f;//í∑Ç≥
+									laz[a].hantei = 0;//Ç†ÇΩÇËîªíËÇÇ∑ÇÈÇ©Å@0:ÇµÇ»Ç¢Å@1:Ç∑ÇÈ
+									laz[a].lphy.conv_flag = 0;//âÒì]Ç∑ÇÈÇ©Å@0:ÇµÇ»Ç¢Å@1:Ç∑ÇÈ
+									laz[a].lphy.conv_base_x = _x;//âÒì]ÇÃäÓèÄÇ∆Ç»ÇÈç¿ïW
+									laz[a].lphy.conv_base_y = _y;
+									laz[a].lphy.conv_x = laz[a].startpt.x;//âÒì]Ç∑ÇÈÉåÅ[ÉUÅ[ÇÃà íu
+									laz[a].lphy.conv_y = laz[a].startpt.y;
+									input_lphy(&laz[a], 10, 0.0f);
+								}
+							}
+						}
+					}
+					bul[i].fl = 0;
 				}
 			}
 			else if (bul[i].sta == 11) {
-
+				if (bul[i].cnt == 60) bul[i].spd = 0.0f;
+				if (bul[i].cnt >= 90 && bul[i].cnt < 120) {
+					bul[i].spd += 0.1f;
+					bul[i].ang -= Define::PI * 2.0f / 3.0f / 30.0f;
+				}
 			}
 			else if (bul[i].sta == 12) {
-
+				if (bul[i].cnt == 60) bul[i].spd = 0.0f;
+				if (bul[i].cnt == 120) {
+					bul[i].spd = 2.5f;
+					bul[i].ang = atan2f(py - bul[i].y, px - bul[i].x);
+				}
 			}
 			else if (bul[i].sta == 13) {
-
+			if (bul[i].cnt < 60) bul[i].spd += 2.0f / 60.0f;
 			}
 		}
 	}
@@ -1032,332 +1167,308 @@ void Enemy::enemy_pattern0009(float px, float py) {
 //
 void Enemy::enemy_pattern0010(float px, float py) {
 	if (count == 0) {
-		time = 99;
-		hp_max = 80000;
+		time = 120;
+		hp_max = 100000;
 		hp = hp_max;
-		flag = 1;
+		flag = 2;
 		change = 5;
-		move_flag = 1;
+		move_flag = 0;
 	}
 
-	if (count % 210 == 0) move(60);
+	int shot_count[4], shot_num[4];
+	switch (level) {
+	case 0:
+		shot_count[0] = 60;
+		shot_count[1] = 150;
+		shot_count[2] = 300;
+		shot_count[3] = 300;
+		shot_num[0] = 5;
+		shot_num[1] = 8;
+		shot_num[2] = 2;
+		shot_num[3] = 4;
+		break;
+	case 1:
+		shot_count[0] = 50;
+		shot_count[1] = 120;
+		shot_count[2] = 240;
+		shot_count[3] = 420;
+		shot_num[0] = 6;
+		shot_num[1] = 12;
+		shot_num[2] = 4;
+		shot_num[3] = 6;
+		break;
+	case 2:
+		shot_count[0] = 30;
+		shot_count[1] = 90;
+		shot_count[2] = 180;
+		shot_count[3] = 540;
+		shot_num[0] = 8;
+		shot_num[1] = 24;
+		shot_num[2] = 7;
+		shot_num[3] = 8;
+		break;
+	default:
+		shot_count[0] = 300;
+		shot_count[1] = 120;
+		shot_count[2] = 600;
+		shot_count[3] = 60;
+		shot_num[0] = 3;
+		shot_num[1] = 4;
+		shot_num[2] = 1;
+		shot_num[3] = 2;
+		break;
+	}
+
+	float laz_haba = 150.0f;
+	if (hp <= hp_max * 2 / 3 || time < 90) laz_haba = 200.0f;
 	int a;
-
-	if (count % 420 == 0) {
-		float ranx = GetRand(Define::IN_W * 10) / 10.0f;
-		float rany = GetRand(1000) / 10.0f;
-		for (int i = 0; i < 16; i++) {
-			for (int j = 0; j < 10; j++) {
-				if ((a = search_bull()) >= 0) {
-					bul[a].fl = 3;
-					bul[a].x = (float)Define::CENTER_X;
-					bul[a].y = 150.0f;
-					bul[a].vx = 0.0f;
-					bul[a].vy = 0.0f;
-					bul[a].spd = 1.5f;
-					bul[a].ang = Define::PI * 2.0f * i / 16.0f;
-					bul[a].knd = 7;
-					bul[a].col = 0;
-					bul[a].till = 240;
-					bul[a].grz = 1;
-					bul[a].cnt = 0;
-					bul[a].sta = j;
-				}
-				if ((a = search_bull()) >= 0) {
-					bul[a].fl = 3;
-					bul[a].x = (float)Define::CENTER_X;
-					bul[a].y = 150.0f;
-					bul[a].vx = 0.0f;
-					bul[a].vy = 0.0f;
-					bul[a].spd = 1.5f;
-					bul[a].ang = Define::PI * 2.0f * i / 16.0f;
-					bul[a].knd = 7;
-					bul[a].col = 0;
-					bul[a].till = 240;
-					bul[a].grz = 1;
-					bul[a].cnt = 0;
-					bul[a].sta = j + 10;
-				}
-			}
+	static float lazx, lazy;
+	
+	if (count == 0) {
+		for (int i = 0; i < 4; i++) {
+			fam[i].fl = 11;
+			fam[i].x = _x;
+			fam[i].y = _y;
+			fam[i].vx = 0.0f;
+			fam[i].vy = 0.0f;
+			fam[i].ang = -Define::PI / 2.0f;
+			fam[i].spd = 0.0f;
+			fam[i].hp = hp_max;
+			fam[i].ran = 50.0f;
+			fam[i].dmg = 0;
+			fam[i].cnt = 0;
+			fam[i].knd = 1;
+			fam[i].img = i + 1;
+			fam[i].sta = i;
 		}
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				if ((a = search_bull()) >= 0) {
-					bul[a].fl = 3;
-					bul[a].x = Define::CENTER_X - 150.0f;
-					bul[a].y = 300.0f;
-					bul[a].vx = 0.0f;
-					bul[a].vy = 0.0f;
-					bul[a].spd = 1.0f;
-					bul[a].ang = Define::PI * 2.0f * i / 8.0f;
-					bul[a].knd = 7;
-					bul[a].col = 3;
-					bul[a].till = 240;
-					bul[a].grz = 1;
-					bul[a].cnt = 0;
-					bul[a].sta = j;
-				}
-				if ((a = search_bull()) >= 0) {
-					bul[a].fl = 3;
-					bul[a].x = Define::CENTER_X + 150.0f;
-					bul[a].y = 300.0f;
-					bul[a].vx = 0.0f;
-					bul[a].vy = 0.0f;
-					bul[a].spd = 1.0f;
-					bul[a].ang = Define::PI * 2.0f * i / 8.0f;
-					bul[a].knd = 7;
-					bul[a].col = 3;
-					bul[a].till = 240;
-					bul[a].grz = 1;
-					bul[a].cnt = 0;
-					bul[a].sta = j + 10;
-				}
-			}
-		}
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				if ((a = search_bull()) >= 0) {
-					bul[a].fl = 3;
-					bul[a].x = Define::CENTER_X - 300.0f;
-					bul[a].y = 500.0f;
-					bul[a].vx = 0.0f;
-					bul[a].vy = 0.0f;
-					bul[a].spd = 1.0f;
-					bul[a].ang = Define::PI * 2.0f * i / 8.0f;
-					bul[a].knd = 7;
-					bul[a].col = 6;
-					bul[a].till = 240;
-					bul[a].grz = 1;
-					bul[a].cnt = 0;
-					bul[a].sta = j + 10;
-				}
-				if ((a = search_bull()) >= 0) {
-					bul[a].fl = 3;
-					bul[a].x = Define::CENTER_X + 300.0f;
-					bul[a].y = 500.0f;
-					bul[a].vx = 0.0f;
-					bul[a].vy = 0.0f;
-					bul[a].spd = 1.0f;
-					bul[a].ang = Define::PI * 2.0f * i / 8.0f;
-					bul[a].knd = 7;
-					bul[a].col = 6;
-					bul[a].till = 240;
-					bul[a].grz = 1;
-					bul[a].cnt = 0;
-					bul[a].sta = j;
-				}
-			}
-		}
-
-		if (level >= 2) {
-			for (int i = 0; i < 8; i++) {
-				for (int j = 0; j < 8; j++) {
-					if ((a = search_bull()) >= 0) {
-						bul[a].fl = 3;
-						bul[a].x = Define::CENTER_X - 200.0f;
-						bul[a].y = 150.0f;
-						bul[a].vx = 0.0f;
-						bul[a].vy = 0.0f;
-						bul[a].spd = 1.0f;
-						bul[a].ang = Define::PI * 2.0f * i / 8.0f;
-						bul[a].knd = 7;
-						bul[a].col = 1;
-						bul[a].till = 240;
-						bul[a].grz = 1;
-						bul[a].cnt = 0;
-						bul[a].sta = j;
-					}
-					if ((a = search_bull()) >= 0) {
-						bul[a].fl = 3;
-						bul[a].x = Define::CENTER_X + 200.0f;
-						bul[a].y = 150.0f;
-						bul[a].vx = 0.0f;
-						bul[a].vy = 0.0f;
-						bul[a].spd = 1.0f;
-						bul[a].ang = Define::PI * 2.0f * i / 8.0f;
-						bul[a].knd = 7;
-						bul[a].col = 1;
-						bul[a].till = 240;
-						bul[a].grz = 1;
-						bul[a].cnt = 0;
-						bul[a].sta = j + 10;
-					}
-				}
-			}
-		}
-		if (level == 3) {
-			for (int i = 0; i < 16; i++) {
-				for (int j = 0; j < 10; j++) {
-					if ((a = search_bull()) >= 0) {
-						bul[a].fl = 3;
-						bul[a].x = (float)Define::CENTER_X;
-						bul[a].y = 150.0f;
-						bul[a].vx = 0.0f;
-						bul[a].vy = 0.0f;
-						bul[a].spd = 1.5f;
-						bul[a].ang = Define::PI * 2.0f * i / 16.0f + Define::PI / 16.0f;
-						bul[a].knd = 7;
-						bul[a].col = 0;
-						bul[a].till = 240;
-						bul[a].grz = 1;
-						bul[a].cnt = 0;
-						bul[a].sta = j;
-					}
-					if ((a = search_bull()) >= 0) {
-						bul[a].fl = 3;
-						bul[a].x = (float)Define::CENTER_X;
-						bul[a].y = 150.0f;
-						bul[a].vx = 0.0f;
-						bul[a].vy = 0.0f;
-						bul[a].spd = 1.5f;
-						bul[a].ang = Define::PI * 2.0f * i / 16.0f + Define::PI / 16.0f;
-						bul[a].knd = 7;
-						bul[a].col = 0;
-						bul[a].till = 240;
-						bul[a].grz = 1;
-						bul[a].cnt = 0;
-						bul[a].sta = j + 10;
-					}
-				}
-			}
-			for (int i = 0; i < 8; i++) {
-				for (int j = 0; j < 8; j++) {
-					if ((a = search_bull()) >= 0) {
-						bul[a].fl = 3;
-						bul[a].x = Define::CENTER_X - 150.0f;
-						bul[a].y = 300.0f;
-						bul[a].vx = 0.0f;
-						bul[a].vy = 0.0f;
-						bul[a].spd = 1.0f;
-						bul[a].ang = Define::PI * 2.0f * i / 8.0f + Define::PI / 8.0f;
-						bul[a].knd = 7;
-						bul[a].col = 3;
-						bul[a].till = 240;
-						bul[a].grz = 1;
-						bul[a].cnt = 0;
-						bul[a].sta = j;
-					}
-					if ((a = search_bull()) >= 0) {
-						bul[a].fl = 3;
-						bul[a].x = Define::CENTER_X + 150.0f;
-						bul[a].y = 300.0f;
-						bul[a].vx = 0.0f;
-						bul[a].vy = 0.0f;
-						bul[a].spd = 1.0f;
-						bul[a].ang = Define::PI * 2.0f * i / 8.0f + Define::PI / 8.0f;
-						bul[a].knd = 7;
-						bul[a].col = 3;
-						bul[a].till = 240;
-						bul[a].grz = 1;
-						bul[a].cnt = 0;
-						bul[a].sta = j + 10;
-					}
-				}
-			}
-			float rang = GetRand(62831) / 10000.0f;
-			for (int i = 0; i < 12; i++) {
-				for (int j = 0; j < 8; j++) {
-					if ((a = search_bull()) >= 0) {
-						bul[a].fl = 3;
-						bul[a].x = Define::CENTER_X - 100.0f;
-						bul[a].y = 50.0f;
-						bul[a].vx = 0.0f;
-						bul[a].vy = 0.0f;
-						bul[a].spd = 1.0f;
-						bul[a].ang = Define::PI * 2.0f * i / 12.0f + rang;
-						bul[a].knd = 7;
-						bul[a].col = 4;
-						bul[a].till = 240;
-						bul[a].grz = 1;
-						bul[a].cnt = 0;
-						bul[a].sta = j + 10;
-					}
-					if ((a = search_bull()) >= 0) {
-						bul[a].fl = 3;
-						bul[a].x = Define::CENTER_X + 100.0f;
-						bul[a].y = 50.0f;
-						bul[a].vx = 0.0f;
-						bul[a].vy = 0.0f;
-						bul[a].spd = 1.0f;
-						bul[a].ang = Define::PI * 2.0f * i / 12.0f + rang;
-						bul[a].knd = 7;
-						bul[a].col = 4;
-						bul[a].till = 240;
-						bul[a].grz = 1;
-						bul[a].cnt = 0;
-						bul[a].sta = j;
-					}
-				}
-			}
-			for (int i = 0; i < 5; i++) {
-				for (int j = 0; j < 5; j++) {
-					if ((a = search_bull()) >= 0) {
-						bul[a].fl = 1;
-						bul[a].x = _x;
-						bul[a].y = _y;
-						bul[a].vx = 0.0f;
-						bul[a].vy = 0.0f;
-						bul[a].spd = 1.0f + j * 0.5f;
-						bul[a].ang = atan2f(py - _y, px - _x) + Define::PI / 8.0f * (i - 2);
-						bul[a].knd = 11;
-						bul[a].col = 7;
-						bul[a].till = 240;
-						bul[a].grz = 1;
-						bul[a].cnt = 0;
-						bul[a].sta = -1;
-					}
-				}
-			}
-		}
-		DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
 	}
 
-	if (count % 60 == 0 && count % 420 >= 180 && count % 420 < 420) {
-		float ranx = GetRand(Define::IN_W * 10) / 10.0f + Define::IN_X, rany = GetRand(2000) / 10.0f + 50.0f;
-		float rang = GetRand(62831) / 10000.0f;
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 6; j++) {
+	if (count >= 120) {
+		if (count % shot_count[0] == 0) {
+			float rang = GetRand(62831) / 10000.0f;
+			for (int i = 0; i < shot_num[0]; i++) {
 				if ((a = search_bull()) >= 0) {
 					bul[a].fl = 1;
-					bul[a].x = ranx;
-					bul[a].y = rany;
+					bul[a].ang = Define::PI * 2.0f * i / shot_num[0] + rang;
+					bul[a].x = fam[0].x + cosf(bul[a].ang) * 15.0f;
+					bul[a].y = fam[0].y + sinf(bul[a].ang) * 15.0f;
+					bul[a].vx = 0.0f;
+					bul[a].vy = 0.0f;
+					bul[a].spd = 0.0f;
+					bul[a].knd = 15;
+					bul[a].col = 2;
+					bul[a].till = 100;
+					bul[a].grz = 1;
+					bul[a].cnt = 0;
+					bul[a].sta = 10;
+				}
+				if (hp <= hp_max * 2 / 3 || time < 90) {
+					if ((a = search_bull()) >= 0) {
+						bul[a].fl = 1;
+						bul[a].ang = Define::PI * 2.0f * i / shot_num[0] + Define::PI / shot_num[0] + rang;
+						bul[a].x = fam[0].x + cosf(bul[a].ang) * 30.0f;
+						bul[a].y = fam[0].y + sinf(bul[a].ang) * 30.0f;
+						bul[a].vx = 0.0f;
+						bul[a].vy = 0.0f;
+						bul[a].spd = 0.0f;
+						bul[a].knd = 15;
+						bul[a].col = 2;
+						bul[a].till = 100;
+						bul[a].grz = 1;
+						bul[a].cnt = 0;
+						bul[a].sta = 11;
+					}
+				}
+			}
+			DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
+		}
+		if (count % shot_count[1] == 0) {
+			float rang = GetRand(62831) / 10000.0f;
+			for (int i = 0; i < shot_num[1]; i++) {
+				if ((a = search_bull()) >= 0) {
+					bul[a].fl = 1;
+					bul[a].x = fam[1].x;
+					bul[a].y = fam[1].y;
 					bul[a].vx = 0.0f;
 					bul[a].vy = 0.0f;
 					bul[a].spd = 1.5f;
-					bul[a].ang = rang + Define::PI * 2.0f * i / 16.0f;
-					bul[a].knd = 19;
+					bul[a].ang = Define::PI * 2.0f * i / shot_num[1] + rang;
+					bul[a].knd = 9;
 					bul[a].col = 4;
-					bul[a].till = 240;
+					bul[a].till = 300;
 					bul[a].grz = 1;
 					bul[a].cnt = 0;
-					bul[a].sta = j + 100;
+					bul[a].sta = 20;
 				}
 			}
+			if (hp <= hp_max * 2 / 3 || time < 90) {
+				if ((a = search_bull()) >= 0) {
+					bul[a].fl = 1;
+					bul[a].x = fam[1].x;
+					bul[a].y = fam[1].y;
+					bul[a].vx = 0.0f;
+					bul[a].vy = 0.0f;
+					bul[a].spd = 0.0f;
+					bul[a].ang = 0.0f;
+					bul[a].knd = 11;
+					bul[a].col = 3;
+					bul[a].till = 0;
+					bul[a].grz = 1;
+					bul[a].cnt = 0;
+					bul[a].sta = 21;
+				}
+			}
+			DxLib::PlaySoundMem(sound_shot2, DX_PLAYTYPE_BACK);
+		}
+		if (count % shot_count[2] >= 0 && count % shot_count[2] < 120) {
+			if (count % shot_count[2] == 0) fam[2].sta = GetRand(62831);
+			int way = (count % (shot_count[2] * 2) < shot_count[2] ? 1 : -1);
+			if (hp <= hp_max * 2 / 3 || time < 90) shot_num[2]++;
+			if (hp <= hp_max / 3 || time < 60) shot_num[2]++;
+			if (count % 8 == 0) {
+				for (int i = 0; i < shot_num[2]; i++) {
+					if ((a = search_bull()) >= 0) {
+						bul[a].fl = 1;
+						bul[a].x = fam[2].x;
+						bul[a].y = fam[2].y;
+						bul[a].vx = 0.0f;
+						bul[a].vy = 0.0f;
+						bul[a].spd = 5.0f;
+						bul[a].ang = Define::PI * 2.0f * i / shot_num[2] + way * count / 27.0f + fam[2].sta / 10000.0f;
+						bul[a].knd = 13;
+						bul[a].col = GetRand(7);
+						bul[a].till = 0;
+						bul[a].grz = 1;
+						bul[a].cnt = 0;
+						bul[a].sta = 0;
+						if (hp <= hp_max / 3 || time < 60) {
+							if (way == 1) bul[a].sta = 30;
+							else bul[a].sta = 31;
+						}
+					}
+				}
+				DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
+			}
+		}
+		if (count % 600 == 0) {
+			lazx = px;
+			lazy = py;
+			if ((a = search_lazer()) != -1) {
+				laz[a].col = 0;//íeÇÃêF
+				laz[a].knd = 0;//íeÇÃéÌóﬁ
+				laz[a].startpt.x = fam[3].x;//ï`âÊÇµénÇﬂÇÈç¿ïW
+				laz[a].startpt.y = fam[3].y;
+				laz[a].ang = atan2f(lazy - laz[a].startpt.y, lazx - laz[a].startpt.x);//äpìx
+				laz[a].fl = 1;//ï\é¶Ç∑ÇÈÇ©Å@0:ÇµÇ»Ç¢Å@1:Ç∑ÇÈ
+				laz[a].cnt = 0;
+				laz[a].haba = 5.0f;//ïù
+				laz[a].sta = 0;//
+				laz[a].length = 1200.0f;//í∑Ç≥
+				laz[a].hantei = 0;//Ç†ÇΩÇËîªíËÇÇ∑ÇÈÇ©Å@0:ÇµÇ»Ç¢Å@1:Ç∑ÇÈ
+				laz[a].lphy.conv_flag = 0;//âÒì]Ç∑ÇÈÇ©Å@0:ÇµÇ»Ç¢Å@1:Ç∑ÇÈ
+				laz[a].lphy.conv_base_x = _x;//âÒì]ÇÃäÓèÄÇ∆Ç»ÇÈç¿ïW
+				laz[a].lphy.conv_base_y = _y;
+				laz[a].lphy.conv_x = laz[a].startpt.x;//âÒì]Ç∑ÇÈÉåÅ[ÉUÅ[ÇÃà íu
+				laz[a].lphy.conv_y = laz[a].startpt.y;
+				input_lphy(&laz[a], 10, 0.0f);
+			}
+			DxLib::PlaySoundMem(sound_lazer, DX_PLAYTYPE_BACK);
 		}
 	}
 
+
+	for (int i = 0; i < SHIKI_MAX; i++) {
+		if (fam[i].fl >= 1) {
+			fam[i].x = _x + 300.0f * cosf(Define::PI * count / 240.0f - Define::PI * (fam[i].img - 1) / 2.0f);
+			fam[i].y = _y + 100.0f * sinf(Define::PI * count / 240.0f - Define::PI * (fam[i].img - 1) / 2.0f);
+			hp -= fam[i].dmg;
+		}
+	}
+
+	for (int i = 0; i < LAZER_MAX; i++) {
+		if (laz[i].fl >= 1) {
+			laz[i].startpt.x = fam[3].x;
+			laz[i].startpt.y = fam[3].y;
+			laz[i].ang = atan2f(lazy - laz[i].startpt.y, lazx - laz[i].startpt.x);
+			if (laz[i].cnt >= 60 && laz[i].cnt <= 180) {
+				if (laz[i].cnt == 90) laz[i].hantei = 0.6f;
+				laz[i].haba = laz_haba / 120.0f * (laz[i].cnt - 60.0f) + 5.0f;
+			}
+			if (laz[i].cnt >= shot_count[3] - 60 && laz[i].cnt < shot_count[3]) {
+				if (laz[i].cnt == shot_count[3] - 20) laz[i].hantei = 0;
+				laz[i].haba = laz_haba / 60.0f * (shot_count[3] - laz[i].cnt);
+			}
+			if (hp <= hp_max / 3 || time < 60) {
+				if (laz[i].cnt >= 120 && laz[i].cnt < shot_count[3] - 60) {
+					if (laz[i].cnt % 10 == 0) {
+						for (int j = 0; j < shot_num[3]; j++) {
+							if ((a = search_bull()) >= 0) {
+								bul[a].fl = 1;
+								bul[a].x = laz[i].startpt.x;
+								bul[a].y = laz[i].startpt.y;
+								bul[a].spd = 0.0f;
+								bul[a].ang = GetRand(62831) / 6.0f / 10000.0f - Define::PI / 6.0f + laz[i].ang;
+								bul[a].vx = 3.0f * cosf(bul[a].ang);
+								bul[a].vy = 3.0f * sinf(bul[a].ang);
+								bul[a].knd = 14;
+								bul[a].col = GetRand(2) == 0 ? 0 : 7;
+								bul[a].till = 0;
+								bul[a].grz = 1;
+								bul[a].cnt = 0;
+								bul[a].sta = 40;
+							}
+						}
+					}
+				}
+			}
+			if (laz[i].cnt == shot_count[3]) laz[i].fl = 0;
+		}
+	}
+	
 	for (int i = 0; i < BULLET_MAX; i++) {
 		if (bul[i].fl >= 1) {
-			if (bul[i].sta >= 0 && bul[i].sta < 10) {
-				if (bul[i].cnt >= 30 && bul[i].cnt < 180) bul[i].ang += Define::PI / 180.0f + bul[i].col / 500.0f;
+			switch (bul[i].sta) {
+			case 10:
+				if (bul[i].cnt >= 180 && bul[i].cnt < 210) bul[i].spd += 0.13f;
+				break;
+
+			case 11:
+				if (bul[i].cnt >= 180 && bul[i].cnt < 210) bul[i].spd += 0.09f;
+				break;
+
+			case 20:
+				if (bul[i].cnt == 90) bul[i].spd = 0.0f;
 				if (bul[i].cnt == 180) {
-					bul[i].spd = 2.0f + 0.5f * bul[i].sta;
-				}
-			}
-			if (bul[i].sta >= 10 && bul[i].sta < 20) {
-				if (bul[i].cnt >= 30 && bul[i].cnt < 180) bul[i].ang -= Define::PI / 180.0f + bul[i].col / 500.0f;
-				if (bul[i].cnt == 180) {
-					bul[i].spd = 2.0f + 0.5f * (bul[i].sta - 10);
-				}
-			}
-			if (bul[i].sta >= 100) {
-				if (bul[i].cnt == 120) {
+					bul[i].spd = 2.0f;
 					bul[i].ang = atan2f(py - bul[i].y, px - bul[i].x);
-					bul[i].spd = 2.5f + 0.5f * (bul[i].sta - 100);
 				}
+				break;
+
+			case 21:
+				if (bul[i].cnt == 180) {
+					bul[i].spd = 2.0f;
+					bul[i].ang = atan2f(py - bul[i].y, px - bul[i].x);
+				}
+				break;
+
+			case 30:
+				if (bul[i].cnt >= 30) bul[i].ang += 0.007f;
+				break;
+
+			case 31:
+				if (bul[i].cnt >= 30) bul[i].ang -= 0.007f;
+				break;
+
+			case 40:
+				bul[i].ang += Define::PI / 30.0f;
+				break;
+
+			default:
+				break;
 			}
 		}
 	}
 
+	lazer_calc();
 	move_bull();
 }

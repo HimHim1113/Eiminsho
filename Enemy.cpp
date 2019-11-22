@@ -87,12 +87,15 @@ str{
 	LoadDivGraph("./dat/img/bullet/laserBody0.png", 2, 2, 1, 60, 920, img_lazer[0]);
 	LoadDivGraph("./dat/img/bullet/laserBody1.png", 2, 2, 1, 60, 920, img_lazer[1]);
 	LoadDivGraph("./dat/img/bullet/laserBody2.png", 8, 8, 1, 12, 240, img_lazer[2]);
-	LoadDivGraph("./dat/img/bullet/laserRoot0.png", 2, 2, 1, 140, 140, img_lazer_root[0]);
-	LoadDivGraph("./dat/img/bullet/laserRoot1.png", 2, 2, 1, 60, 60, img_lazer_root[1]);
+	LoadDivGraph("./dat/img/bullet/laserRoot0.png", 2, 2, 1, 60, 60, img_lazer_root[0]);
+	LoadDivGraph("./dat/img/bullet/laserRoot1.png", 2, 2, 1, 10, 10, img_lazer_root[1]);
 	LoadDivGraph("./dat/img/bullet/laserRoot2.png", 2, 2, 1, 60, 60, img_lazer_root[2]);
 
-	image_shiki[0] = LoadGraph("./dat/img/char/shikigami/tanipan.png");
-	image_shiki[1] = LoadGraph("./dat/img/char/shikigami/sun.png");
+	image_shiki[0] = LoadGraph("./dat/img/char/shikigami/sun.png");
+	image_shiki[1] = LoadGraph("./dat/img/char/minmin/shunmin0.png");
+	image_shiki[2] = LoadGraph("./dat/img/char/minmin/kamin0.png");
+	image_shiki[3] = LoadGraph("./dat/img/char/minmin/akikaze0.png");
+	image_shiki[4] = LoadGraph("./dat/img/char/minmin/toumin0.png");
 
 	sound_shot1 = LoadSoundMem("./dat/se/enemy_shot1.wav");
 	sound_shot2 = LoadSoundMem("./dat/se/enemy_shot2.wav");
@@ -148,7 +151,7 @@ void Enemy::ini(int lev) {
 	change = 0;
 	level = lev;
 	person_num = 0;
-	spell_num = 9;
+	spell_num = 10;
 	hp = hp_max = 0;
 	move_flag = 0;
 	_x = (float)Define::CENTER_X;
