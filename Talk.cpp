@@ -13,14 +13,11 @@ Talk::Talk() :
 {
 	font = CreateFontToHandle("ÇlÇr ÉSÉVÉbÉN", 20, 2, DX_FONTTYPE_ANTIALIASING_EDGE);
 
-	char_pic[0] = LoadGraph("./dat/img/char/hibiki/hibiki0.png");
-	char_pic[1] = LoadGraph("./dat/img/char/hibiki/hibiki1.png");
-	char_pic[2] = LoadGraph("./dat/img/char/hibiki/hibiki2.png");
-	char_pic[3] = LoadGraph("./dat/img/char/hibiki/hibiki3.png");
-	enemy_pic[0] = LoadGraph("./dat/img/char/hibiki/hibiki0.png");
-	enemy_pic[1] = LoadGraph("./dat/img/char/hibiki/hibiki1.png");
-	enemy_pic[2] = LoadGraph("./dat/img/char/hibiki/hibiki2.png");
-	enemy_pic[3] = LoadGraph("./dat/img/char/hibiki/hibiki3.png");
+	char_pic = LoadGraph("./dat/img/char/face/shibuki.png");
+	enemy_pic[0] = LoadGraph("./dat/img/char/face/shunmin.png");
+	enemy_pic[1] = LoadGraph("./dat/img/char/face/kamin.png");
+	enemy_pic[2] = LoadGraph("./dat/img/char/face/akikaze.png");
+	enemy_pic[3] = LoadGraph("./dat/img/char/face/toumin.png");
 }
 
 int Talk::main() {
@@ -29,25 +26,25 @@ int Talk::main() {
 			FileRead_scanf(fp, "%d,%d,", &ishuman, &face);
 			FileRead_gets(str, 100 - 1, fp);
 		}
-		if (ishuman <= 0) flag = 0;
+		if (ishuman < 0) flag = 0;
 		draw();
 	}
 	return 0;
 }
 
 void Talk::draw() {
-	if(ishuman == 1) {
+	if(ishuman == 1) { //ìG
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
-		DrawTurnGraph(Define::CENTER_X - 350, 200, char_pic[face], TRUE);
+		DrawGraph(Define::IN_X - 100, 200, char_pic, TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-		DrawGraph(Define::CENTER_X + 50, 200, enemy_pic[face], TRUE);
+		DrawGraph(Define::CENTER_X - 50, 200, enemy_pic[face - 1], TRUE);
 		DrawStringToHandle(200, 600, str, GetColor(255, 100, 100), font);
 	}
-	else if (ishuman == 2) {
+	else if (ishuman == 2) { //é©ã@
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
-		DrawGraph(Define::CENTER_X + 50, 200, enemy_pic[face], TRUE);
+		DrawGraph(Define::CENTER_X - 50, 200, enemy_pic[face - 1], TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-		DrawTurnGraph(Define::CENTER_X - 350, 200, char_pic[face], TRUE);
+		DrawGraph(Define::IN_X - 100, 200, char_pic, TRUE);
 		DrawStringToHandle(200, 600, str, GetColor(100, 100, 255), font);
 	}
 	else if (ishuman == 3) {
@@ -58,21 +55,8 @@ void Talk::draw() {
 void Talk::ini(int spell) {
 	if (spell == 0) flag = 1;
 	else flag = 0;
-	ishuman = -1;
-	switch (-1) {
-	case 0:
-		fp = FileRead_open("./dat/text/hibiki.txt");
-		break;
-	case 1:
-		fp = FileRead_open("./dat/text/ayakashi.txt");
-		break;
-	case 2:
-		fp = FileRead_open("./dat/text/midori.txt");
-		break;
-	default:
-		flag = 0;
-		break;
-	}
+	ishuman = 10;
+	fp = FileRead_open("./dat/text/minmin.txt");
 }
 
 void Talk::fin() {

@@ -7,8 +7,8 @@
 //OK
 void Enemy::enemy_pattern0000(float px, float py) {
 	if (count == 0) {
-		time = 40;
-		hp_max = 40000;
+		time = 35;
+		hp_max = 35000;
 		hp = hp_max;
 		flag = 1;
 		change = 0;
@@ -86,8 +86,8 @@ void Enemy::enemy_pattern0000(float px, float py) {
 //OK
 void Enemy::enemy_pattern0001(float px, float py) {
 	if (count == 0) {
-		time = 40;
-		hp_max = 35000;
+		time = 30;
+		hp_max = 25000;
 		hp = hp_max;
 		flag = 1;
 		change = 0;
@@ -148,8 +148,8 @@ void Enemy::enemy_pattern0001(float px, float py) {
 //OK
 void Enemy::enemy_pattern0002(float px, float py) {
 	if (count == 0) {
-		time = 50;
-		hp_max = 60000;
+		time = 45;
+		hp_max = 50000;
 		hp = hp_max;
 		flag = 1;
 		change = 1;
@@ -228,8 +228,8 @@ void Enemy::enemy_pattern0002(float px, float py) {
 //OK
 void Enemy::enemy_pattern0003(float px, float py) {
 	if (count == 0) {
-		time = 40;
-		hp_max = 40000;
+		time = 30;
+		hp_max = 30000;
 		hp = hp_max;
 		flag = 1;
 		change = 0;
@@ -336,8 +336,8 @@ void Enemy::enemy_pattern0003(float px, float py) {
 //OK
 void Enemy::enemy_pattern0004(float px, float py) {
 	if (count == 0) {
-		time = 50;
-		hp_max = 60000;
+		time = 45;
+		hp_max = 50000;
 		hp = hp_max;
 		flag = 1;
 		change = 1;
@@ -433,8 +433,8 @@ void Enemy::enemy_pattern0004(float px, float py) {
 //OK
 void Enemy::enemy_pattern0005(float px, float py) {
 	if (count == 0) {
-		time = 40;
-		hp_max = 40000;
+		time = 30;
+		hp_max = 30000;
 		hp = hp_max;
 		flag = 1;
 		change = 0;
@@ -523,8 +523,8 @@ void Enemy::enemy_pattern0005(float px, float py) {
 //OK
 void Enemy::enemy_pattern0006(float px, float py) {
 	if (count == 0) {
-		time = 50;
-		hp_max = 55000;
+		time = 45;
+		hp_max = 45000;
 		hp = hp_max;
 		flag = 1;
 		change = 1;
@@ -615,8 +615,8 @@ void Enemy::enemy_pattern0006(float px, float py) {
 //OK
 void Enemy::enemy_pattern0007(float px, float py) {
 	if (count == 0) {
-		time = 40;
-		hp_max = 40000;
+		time = 30;
+		hp_max = 30000;
 		hp = hp_max;
 		flag = 1;
 		change = 0;
@@ -673,8 +673,8 @@ void Enemy::enemy_pattern0007(float px, float py) {
 //OK
 void Enemy::enemy_pattern0008(float px, float py) {
 	if (count == 0) {
-		time = 50;
-		hp_max = 60000;
+		time = 45;
+		hp_max = 50000;
 		hp = hp_max;
 		flag = 1;
 		change = 3;
@@ -1164,7 +1164,7 @@ void Enemy::enemy_pattern0009(float px, float py) {
 	DrawLine(Define::CENTER_X - 1, 0, Define::CENTER_X - 1, Define::OUT_H, GetColor(0, 255, 255), 3);
 }
 
-//
+//OK
 void Enemy::enemy_pattern0010(float px, float py) {
 	if (count == 0) {
 		time = 120;
@@ -1279,6 +1279,23 @@ void Enemy::enemy_pattern0010(float px, float py) {
 						bul[a].sta = 11;
 					}
 				}
+				if (hp <= hp_max / 3 || time < 60) {
+					if ((a = search_bull()) >= 0) {
+						bul[a].fl = 1;
+						bul[a].ang = 0.0f;
+						bul[a].x = fam[0].x + cosf(bul[a].ang) * 30.0f;
+						bul[a].y = fam[0].y + sinf(bul[a].ang) * 30.0f;
+						bul[a].vx = GetRand(400) / 100.0f - 2.0f;
+						bul[a].vy = -GetRand(300) / 100.0f - 3.0f;
+						bul[a].spd = 0.0f;
+						bul[a].knd = 1;
+						bul[a].col = 2;
+						bul[a].till = 180;
+						bul[a].grz = 1;
+						bul[a].cnt = 0;
+						bul[a].sta = 12;
+					}
+				}
 			}
 			DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
 		}
@@ -1316,6 +1333,25 @@ void Enemy::enemy_pattern0010(float px, float py) {
 					bul[a].grz = 1;
 					bul[a].cnt = 0;
 					bul[a].sta = 21;
+				}
+			}
+			if (hp <= hp_max / 3 || time < 60) {
+				for (int i = 0; i < shot_num[1]; i++) {
+					if ((a = search_bull()) >= 0) {
+						bul[a].fl = 1;
+						bul[a].x = fam[1].x;
+						bul[a].y = fam[1].y;
+						bul[a].vx = 0.0f;
+						bul[a].vy = 0.0f;
+						bul[a].spd = 1.5f;
+						bul[a].ang = Define::PI * 2.0f * i / shot_num[1] + rang;
+						bul[a].knd = 9;
+						bul[a].col = 4;
+						bul[a].till = 300;
+						bul[a].grz = 1;
+						bul[a].cnt = 0;
+						bul[a].sta = 22;
+					}
 				}
 			}
 			DxLib::PlaySoundMem(sound_shot2, DX_PLAYTYPE_BACK);
@@ -1408,8 +1444,8 @@ void Enemy::enemy_pattern0010(float px, float py) {
 								bul[a].y = laz[i].startpt.y;
 								bul[a].spd = 0.0f;
 								bul[a].ang = GetRand(62831) / 6.0f / 10000.0f - Define::PI / 6.0f + laz[i].ang;
-								bul[a].vx = 3.0f * cosf(bul[a].ang);
-								bul[a].vy = 3.0f * sinf(bul[a].ang);
+								bul[a].vx = 4.0f * cosf(bul[a].ang);
+								bul[a].vy = 4.0f * sinf(bul[a].ang);
 								bul[a].knd = 14;
 								bul[a].col = GetRand(2) == 0 ? 0 : 7;
 								bul[a].till = 0;
@@ -1436,6 +1472,11 @@ void Enemy::enemy_pattern0010(float px, float py) {
 				if (bul[i].cnt >= 180 && bul[i].cnt < 210) bul[i].spd += 0.09f;
 				break;
 
+			case 12:
+				if (bul[i].cnt <= 240) bul[i].vy += 0.04f;
+				bul[i].ang = atan2f(bul[i].vy, bul[i].vx);
+				break;
+
 			case 20:
 				if (bul[i].cnt == 90) bul[i].spd = 0.0f;
 				if (bul[i].cnt == 180) {
@@ -1449,6 +1490,12 @@ void Enemy::enemy_pattern0010(float px, float py) {
 					bul[i].spd = 2.0f;
 					bul[i].ang = atan2f(py - bul[i].y, px - bul[i].x);
 				}
+				break;
+				
+			case 22:
+				if (bul[i].cnt == 90) bul[i].spd = 0.0f;
+				if (bul[i].cnt == 180) bul[i].ang += Define::PI;
+				if (bul[i].cnt >= 180 && bul[i].cnt < 210) bul[i].spd += 0.15f;
 				break;
 
 			case 30:

@@ -10,16 +10,17 @@ Board::Board() {
 	img_board[12] = LoadGraph("../dat/img/board/12.png");
 	*/
 	img_board[20] = LoadGraph("./dat/img/board/20.png");
+	font = CreateFontToHandle("ÉÅÉCÉäÉI", 30, 2, DX_FONTTYPE_ANTIALIASING_EDGE);
 }
 
-bool Board::main(int zanki, int bomb, int graze)
+bool Board::main(int zanki, int bomb, int graze, int level)
 {
-	draw(zanki, bomb, graze);
+	draw(zanki, bomb, graze, level);
 	drawFrame();
     return true;
 }
 
-void Board::draw(int zanki, int bomb, int graze) const
+void Board::draw(int zanki, int bomb, int graze, int level) const
 {
 	/*
 	DrawGraph(0, 0, img_board[10], FALSE);
@@ -27,11 +28,12 @@ void Board::draw(int zanki, int bomb, int graze) const
 	DrawGraph(0, 464, img_board[12], FALSE);
 	*/
 	DrawGraph(Define::OUT_W, 0, img_board[20], FALSE);
-	DrawString(Define::OUT_W + 50, 150, "Player", GetColor(255, 255, 255));
-	DrawString(Define::OUT_W + 50, 200, "Bomb", GetColor(255, 255, 255));
-	for (int i = 0; i < zanki; i++) DrawString(Define::OUT_W + 150 + i * 20, 150, "Åú", GetColor(230, 10, 10));
-	for (int i = 0; i < bomb; i++) DrawString(Define::OUT_W + 150 + i * 20, 200, "Åú", GetColor(10, 10, 230));
-	DrawFormatString(Define::OUT_W + 50, 250, GetColor(255, 255, 255), "Graze%8d", graze);
+	DrawStringToHandle(Define::OUT_W + 50, 150, "Player", GetColor(255, 255, 255), font);
+	DrawStringToHandle(Define::OUT_W + 50, 200, "Bomb", GetColor(255, 255, 255), font);
+	for (int i = 0; i < zanki; i++) DrawString(Define::OUT_W + 170 + i * 20, 160, "Åú", GetColor(230, 10, 10));
+	for (int i = 0; i < bomb; i++) DrawString(Define::OUT_W + 170 + i * 20, 210, "Åú", GetColor(10, 10, 230));
+	DrawFormatStringToHandle(Define::OUT_W + 50, 250, GetColor(255, 255, 255), font, "Graze %4d", graze);
+	DrawStringToHandle(Define::OUT_W + 50, 350, (level == 0 ? "Easy" : (level == 1 ? "Normal" : "Hard")), GetColor(255, 255, 255), font);
 }
 
 void Board::drawFrame() const

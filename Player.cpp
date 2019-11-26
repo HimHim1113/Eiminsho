@@ -8,7 +8,7 @@
 const float Player::MOVESPEED = 6.0;
 
 Player::Player() :
-	BOMB_MAX(3),
+	BOMB_MAX(2),
 	slow_cnt(0),
 	power(200),
 	shot_mode(0),
@@ -103,7 +103,7 @@ int Player::main(float ex, float ey, int hit_flag, int enemy_flag, int talk_flag
 	if (bomb_flag == 1 && enemy_flag == 1) damage += 100;
 	draw();
 	if (flag == -1 && cnt == 0) return -999;
-	else return damage * 4;
+	else return damage;
 }
 
 void Player::ini(int man) {
@@ -113,7 +113,7 @@ void Player::ini(int man) {
 	//human = 0;
 	bomb_cnt = 0;
 	bomb_flag = 0;
-	zanki = 5;
+	zanki = 3;
 	bomb = BOMB_MAX;
 	mutekicnt = 180;
 	score = 0;

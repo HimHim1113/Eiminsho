@@ -13,7 +13,7 @@ Looper::Looper() :
 	bgm[1] = LoadSoundMem("./dat/music/1_0.mp3");
 
 	ChangeVolumeSoundMem(90, bgm[0]);
-	ChangeVolumeSoundMem(90, bgm[1]);
+	ChangeVolumeSoundMem(150, bgm[1]);
 
 	se_decition = LoadSoundMem("./dat/se/decition.wav");
 	se_back = LoadSoundMem("./dat/se/cancel.wav");
@@ -118,7 +118,7 @@ bool Looper::loop()
 				PlaySoundMem(bgm[0], DX_PLAYTYPE_LOOP);
 			}
 			_talk.main();
-			_board.main(_player.getzanki(), _player.getbomb(), _enemy.getgraze());
+			_board.main(_player.getzanki(), _player.getbomb(), _enemy.getgraze(), _lmenu.return_select());
 			if (Pad::getIns()->get(ePad::start) == 1) {
 				bgm_flag = 0;
 				_talk.fin();

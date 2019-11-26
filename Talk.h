@@ -13,7 +13,7 @@ public:
 private:
 	int fp;
 	int flag, font;
-	int char_pic[4], enemy_pic[4];
+	int char_pic, enemy_pic[4];
 	int ishuman, face;
 	char str[100];
 

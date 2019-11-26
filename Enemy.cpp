@@ -48,7 +48,7 @@ str{
 	"H–°u“J“e’n‰¹‘ä•—P—ˆv",
 	"",
 	"“~–°u“~«ŒRˆê“€¯v",
-	"ul‹GÜX‚Ì’e–‹v",
+	"ul‹GÜX‚Ì’e–‹”Šwv",
 	"t‰ÄH“~u‚µ™‚«‰i–°v"
 }
 {
@@ -60,9 +60,12 @@ str{
 	img_enemy[1] = LoadGraph("./dat/img/char/minmin/kamin0.png");
 	img_enemy[2] = LoadGraph("./dat/img/char/minmin/akikaze0.png");
 	img_enemy[3] = LoadGraph("./dat/img/char/minmin/toumin0.png");
+	img_enemy[4] = LoadGraph("./dat/img/char/minmin/tomei.png");
 	img_back[0] = LoadGraph("./dat/img/back/image0.png");
 	img_back[1] = LoadGraph("./dat/img/back/image1.png");
+
 	img_enex = LoadGraph("./dat/img/char/enex.png");
+	img_clear = LoadGraph("./dat/img/back/clear.png");
 
 	LoadDivGraph("./dat/img/bullet/00.small.png", 8, 8, 1, 16, 16, img_bullet[0]);
 	LoadDivGraph("./dat/img/bullet/01.barrier.png", 8, 8, 1, 28, 30, img_bullet[1]);
@@ -151,7 +154,7 @@ void Enemy::ini(int lev) {
 	change = 0;
 	level = lev;
 	person_num = 0;
-	spell_num = 10;
+	spell_num = 0;
 	hp = hp_max = 0;
 	move_flag = 0;
 	_x = (float)Define::CENTER_X;
@@ -219,7 +222,9 @@ int Enemy::death() {
 	}
 	else if (flag == 20) {
 		count++;
-		if (count == 180) {
+		if (count >= 120 && count < 180) DrawRotaGraphF((float)Define::CENTER_X, (float)Define::CENTER_Y, (count - 120) / 30.0, Define::PI * (count - 120) / 30.0f, img_clear, TRUE);
+		if(count >= 180 && count <= 300) DrawRotaGraphF((float)Define::CENTER_X, (float)Define::CENTER_Y, 2.0, 0.0f, img_clear, TRUE);
+		if (count == 300) {
 			flag = 0;
 			return -999;
 		}
