@@ -135,6 +135,7 @@ int Enemy::main(int pattern, float px, float py, BullP *pbul, int damage, int bo
 		}
 	}
 	for (int i = 0; i < SHIKI_MAX; i++) fam[i].damage_shiki(pbul);
+	back_tex = -1;
 	if (flag <= 5) {
 		if (count >= 0 && talk_flag == 0) (this->*enemy_pattern[spell_num])(px, py);
 		update(damage, talk_flag);
@@ -161,6 +162,8 @@ void Enemy::ini(int lev) {
 	_y = 150.0f;
 	speed = 0.0f;
 	move_count = 0;
+	back = -1;
+	back_tex = -1;
 	for (int i = 0; i < BULLET_MAX; i++) bul[i].fl = 0;
 	for (int i = 0; i < BULLET_MAX; i++) bul[i].grz = 0;
 	for (int i = 0; i < LAZER_MAX; i++) laz[i].fl = 0;
@@ -178,6 +181,7 @@ void Enemy::update(int damage, int talk_flag) {
 		time--;
 		if (time <= 5) PlaySoundMem(sound_time, DX_PLAYTYPE_BACK);
 	}
+	back = 0;
 	if (flag <= 5) {
 		hp -= damage;
 		if (damage > 0) {
@@ -189,9 +193,10 @@ void Enemy::update(int damage, int talk_flag) {
 			if (spell_num < ENEMY_PATTERN_MAX - 1) {
 				flag = 0;
 				move_count = 0;
-				if (change % 2 == 1) {
+				if (change > 0) {
 					move(_x < Define::CENTER_X ? -100.0f : Define::OUT_W + 100.0f, -200.0f, 60);
 					count = -240;
+					back = 1;
 				}
 				else count = -120;
 				spell_num++;

@@ -8,6 +8,6 @@ Title::Title()
 }
 
 void Title::main() {
-	DrawStringToHandle(300, 200, "‚ê–‚Ü˜^", GetColor(255, 255, 255), font);
+	DrawStringToHandle(300, 200, "ó˜Q‰i–°´", GetColor(255, 255, 255), font);
 	DrawStringToHandle(300, 400, "Press Z", GetColor(255, 255, 255), font);
 }

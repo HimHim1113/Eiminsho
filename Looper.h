@@ -12,6 +12,7 @@
 #include "Board.h"
 #include "Back01.h"
 #include "BackSpell.h"
+#include "Texture.h"
 
 
 class Looper final
@@ -40,4 +41,5 @@ private:
 
 	Back01 _back1;
 	BackSpell _backs;
+	Texture _tex;
 };

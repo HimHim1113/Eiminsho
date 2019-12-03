@@ -5,7 +5,7 @@
 using namespace std;
 
 const static int   IMG_HEIGHT = 879;
-const static float SCROLL_SPEED = 2.f;
+const static float SCROLL_SPEED = 2.0f;
 
 BackSpell::BackSpell()
 {

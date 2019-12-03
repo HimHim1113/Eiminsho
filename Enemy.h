@@ -18,6 +18,8 @@ public:
 	float gety() const { return _y; }
 	int getspell() const { return spell_num; }
 	int getgraze() const { return graze; }
+	int getback() const { return back; }
+	int gettex() const { return back_tex; }
 
 private:
 	static const int ENEMY_MAX = 5, ENEMY_PATTERN_MAX = 11, BULLET_MAX = 10000, LAZER_MAX = 100, SHIKI_MAX = 10;
@@ -29,6 +31,7 @@ private:
 	int sound_shot1, sound_shot2, sound_death, sound_hit, sound_fihit, sound_time, sound_lazer;
 	char str[ENEMY_PATTERN_MAX][100];
 	int str_x, str_leng;
+	int back, back_tex;
 
 	Familiar *fam;
 	Bullet *bul;

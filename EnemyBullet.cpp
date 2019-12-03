@@ -11,7 +11,7 @@ void Enemy::enemy_pattern0000(float px, float py) {
 		hp_max = 35000;
 		hp = hp_max;
 		flag = 1;
-		change = 0;
+		change = 2;
 		move_flag = 2;
 	}
 
@@ -155,6 +155,7 @@ void Enemy::enemy_pattern0002(float px, float py) {
 		change = 1;
 		move_flag = 1;
 	}
+	back_tex = 0;
 	int shot_count;
 	switch (level) {
 	case 0:
@@ -343,17 +344,17 @@ void Enemy::enemy_pattern0004(float px, float py) {
 		change = 1;
 		move_flag = 1;
 	}
-
+	back_tex = 1;
 	int shot_num;
 	switch (level) {
 	case 0:
 		shot_num = 16;
 		break;
 	case 1:
-		shot_num = 30;
+		shot_num = 28;
 		break;
 	case 2:
-		shot_num = 56;
+		shot_num = 48;
 		break;
 	default:
 		shot_num = 2;
@@ -530,7 +531,7 @@ void Enemy::enemy_pattern0006(float px, float py) {
 		change = 1;
 		move_flag = 1;
 	}
-
+	back_tex = 2;
 	int shot_count, shot_num;
 	switch (level) {
 	case 0:
@@ -680,7 +681,7 @@ void Enemy::enemy_pattern0008(float px, float py) {
 		change = 3;
 		move_flag = 1;
 	}
-
+	back_tex = 3;
 	int shot_num1, shot_num2;
 	switch (level) {
 	case 0:
@@ -1171,7 +1172,7 @@ void Enemy::enemy_pattern0010(float px, float py) {
 		hp_max = 100000;
 		hp = hp_max;
 		flag = 2;
-		change = 5;
+		change = 0;
 		move_flag = 0;
 	}
 

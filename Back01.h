@@ -12,13 +12,22 @@ class Back01 final : public AbstractBack
 public:
     Back01();
     ~Back01() = default;
+	void update(int);
     bool update() override;
     void draw() const override;
 
 private:
-    void draw(VECTOR offset) const;
+	class Quadrangle {
+	public:
+		const int img;
+		float x, y;
+		Quadrangle(float x, float y, int img) : x(x), y(y), img(img) {}
+	};
 
-    std::list<std::shared_ptr<Surface>> _list;
-    std::array<int, Surface::DATANUM> _handle;
-
+	const static int MAX = 4;
+	double exrate;
+	int img_first, img_second;
+	int img[MAX];
+	std::array<std::array<std::shared_ptr<Quadrangle>, 2>, MAX> _list;
+	int num, count;
 };

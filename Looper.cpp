@@ -95,8 +95,9 @@ bool Looper::loop()
 			break;
 
 		case 100:
-			_back1.update();
+			_back1.update(_enemy.getback());
 			_back1.draw();
+			_tex.main(_enemy.gettex());
 
 			if (bgm_flag == 0) {
 				bgm_flag = 1;
