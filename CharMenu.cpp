@@ -9,11 +9,13 @@ CharMenu::CharMenu()
 	char_img[0] = LoadGraph("./dat/img/char/shibuki/big1.png");
 	char_img[1] = LoadGraph("./dat/img/char/shibuki/big1.png");
 	char_img[2] = LoadGraph("./dat/img/char/shibuki/big1.png");
+	img = LoadGraph("./dat/img/back/menu/katakana.png");
 }
 
 void CharMenu::select() {
 	if (Pad::getIns()->get(ePad::up) == 1 && num > 0) num--;
 	else if (Pad::getIns()->get(ePad::down) == 1 && num < Player::CHAR_NUM - 1) num++;
+	DrawGraph(0, 0, img, FALSE);
 	const char name[Player::CHAR_NUM][WORD_MAX] = { "ホーミングショット", "フォーワードショット", "ワイドショット" };
 	DrawRotaGraphF((float)Define::CENTER_X, (float)Define::CENTER_Y, 1.0, 0.0, char_img[num], TRUE);
 	for (int i = 0; i < Player::CHAR_NUM; i++) {

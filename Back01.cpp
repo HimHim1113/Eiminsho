@@ -13,7 +13,7 @@ Back01::Back01() :
 	count(-1)
 {
     img_first = LoadGraph("./dat/img/back/normal/katakana.png");
-	img_second = LoadGraph("./dat/img/back/normal/katakana.png");
+	img_second = LoadGraph("./dat/img/back/normal/shiki.png");
 	img[0] = LoadGraph("./dat/img/back/normal/spring.png");
 	img[1] = LoadGraph("./dat/img/back/normal/summer.png");
 	img[2] = LoadGraph("./dat/img/back/normal/autumn.png");
@@ -32,13 +32,14 @@ void Back01::update(int change)
 {
 	if (change == 1) {
 		count = 0;
-		if (num < MAX - 1) {
+		if (num == -2) num = -1;
+		else if (num < MAX - 1) {
 			num++;
 			for (int i = 0; i < 2; i++) {
 				_list[num][i]->x = (float)IMG_WIDTH * i - (IMG_WIDTH - Define::OUT_W) / 2.0f;
 			}
 		}
-		else num = -1;
+		else num = -2;
 	}
 	else if (change == -1) {
 		count = -1;
@@ -75,7 +76,9 @@ void Back01::draw() const
 {
     SetDrawMode(DX_DRAWMODE_BILINEAR);
 	if (count >= 0) {
-		DrawRotaGraphF((float)Define::CENTER_X, (float)Define::CENTER_Y, exrate, 0.0, img[num], FALSE);
+		if(num >= 0) DrawRotaGraphF((float)Define::CENTER_X, (float)Define::CENTER_Y, exrate, 0.0, img[num], FALSE);
+		else if(num == -2) DrawRotaGraphF((float)Define::CENTER_X, (float)Define::CENTER_Y, exrate, 0.0, img_second, FALSE);
+		else DrawRotaGraphF((float)Define::CENTER_X, (float)Define::CENTER_Y, exrate, 0.0, img_first, FALSE);
 	}
 	else {
 		if (num >= 0) {
@@ -83,7 +86,7 @@ void Back01::draw() const
 			DrawTurnGraphF(_list[num][1]->x, _list[num][1]->y, _list[num][1]->img, FALSE);
 		}
 		else if(num == -2) DrawRotaGraphF((float)Define::CENTER_X, (float)Define::CENTER_Y, 1.0, 0.0, img_second, FALSE);
-		else DrawRotaGraphF((float)Define::CENTER_X, (float)Define::CENTER_Y, 1.0, 0.0, img_second, FALSE);
+		else DrawRotaGraphF((float)Define::CENTER_X, (float)Define::CENTER_Y, 1.0, 0.0, img_first, FALSE);
 	}
 	
     SetDrawMode(DX_DRAWMODE_NEAREST);

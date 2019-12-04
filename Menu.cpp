@@ -8,6 +8,7 @@ void Menu::select() {
 	if (Pad::getIns()->get(ePad::bom) == 1 || Pad::getIns()->get(ePad::start) == 1) num = NAME_MAX - 1;
 	else if (Pad::getIns()->get(ePad::up) == 1 && num > 0) num--;
 	else if (Pad::getIns()->get(ePad::down) == 1 && num < NAME_MAX - 1) num++;
+	DrawGraph(0, 0, img, FALSE);
 	const char name[NAME_MAX][WORD_MAX] = { "Play", "Dice", "Help", "Quit" };
 	for (int i = 0; i < NAME_MAX; i++) {
 		int col = i == num ? 255 : 150;

@@ -9,5 +9,6 @@ public:
 
 private:
 	int font;
+	int img;
 };
 

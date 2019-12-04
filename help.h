@@ -5,7 +5,7 @@
 class Help final : public BaseMenu
 {
 public:
-	Help() { font = CreateFontToHandle("ƒƒCƒŠƒI", 20, 2, DX_FONTTYPE_ANTIALIASING_EDGE); }
+	Help();
 	~Help() = default;
 
 	int draw();

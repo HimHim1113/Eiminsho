@@ -685,19 +685,19 @@ void Enemy::enemy_pattern0008(float px, float py) {
 	int shot_num1, shot_num2;
 	switch (level) {
 	case 0:
-		shot_num1 = 12;
-		shot_num2 = 2;
-		break;
-	case 1:
-		shot_num1 = 20;
-		shot_num2 = 2;
-		break;
-	case 2:
-		shot_num1 = 20;
+		shot_num1 = 8;
 		shot_num2 = 3;
 		break;
+	case 1:
+		shot_num1 = 12;
+		shot_num2 = 3;
+		break;
+	case 2:
+		shot_num1 = 16;
+		shot_num2 = 4;
+		break;
 	default:
-		shot_num1 = 8;
+		shot_num1 = 4;
 		shot_num2 = 1;
 		break;
 	}
@@ -892,7 +892,7 @@ void Enemy::enemy_pattern0009(float px, float py) {
 			}
 		}
 		else if (status == 3) {
-			if (t % 2 == 0) {
+			if (t % 3 == 0) {
 				if ((a = search_bull()) >= 0) {
 					bul[a].fl = 3;
 					bul[a].x = t * Define::OUT_W / 120.0f;
@@ -982,11 +982,11 @@ void Enemy::enemy_pattern0009(float px, float py) {
 			}
 		}
 		else if (status == 6) {
-			if (count % 1 == 0) {
+			if (count % 3 <= 1) {
 				if ((a = search_bull()) >= 0) {
 					bul[a].fl = 3;
-					bul[a].x = Define::CENTER_X * cosf(t * Define::PI / 60.0f * 3) + Define::CENTER_X;
-					bul[a].y = Define::CENTER_X * sinf(t * Define::PI / 60.0f * 2) + Define::CENTER_Y;
+					bul[a].x = t * 5.0f * cosf(t * Define::PI / 10.0f) + Define::CENTER_X;
+					bul[a].y = t * 5.0f * sinf(t * Define::PI / 10.0f) + Define::CENTER_Y;
 					bul[a].vx = 0.0f;
 					bul[a].vy = 0.0f;
 					bul[a].spd = 0.0f;
@@ -1050,8 +1050,8 @@ void Enemy::enemy_pattern0009(float px, float py) {
 					}
 				}
 				if (count % 600 == 300) {
-					if (bul[i].y < Define::CENTER_X) {
-						if (bul[i].x > Define::CENTER_Y) { //èt
+					if (bul[i].y < Define::CENTER_Y) {
+						if (bul[i].x > Define::CENTER_X) { //èt
 							float rang = GetRand(62831) / 10000.0f;
 							for (int j = 0; j < shot_num[0]; j++) {
 								if ((a = search_bull()) >= 0) {
@@ -1093,7 +1093,7 @@ void Enemy::enemy_pattern0009(float px, float py) {
 						}
 					}
 					else {
-						if (bul[i].x < Define::CENTER_Y) { //èH
+						if (bul[i].x < Define::CENTER_X) { //èH
 							for (int j = 0; j < shot_num[2]; j++) {
 								if ((a = search_bull()) >= 0) {
 									bul[a].fl = 3;

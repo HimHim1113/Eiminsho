@@ -103,7 +103,7 @@ int Player::main(float ex, float ey, int hit_flag, int enemy_flag, int talk_flag
 	if (bomb_flag == 1 && enemy_flag == 1) damage += 100;
 	draw();
 	if (flag == -1 && cnt == 0) return -999;
-	else return damage *6;
+	else return damage;
 }
 
 void Player::ini(int man) {
