@@ -11,7 +11,7 @@ Talk::Talk() :
 	ishuman(-1),
 	str("\0")
 {
-	font = CreateFontToHandle("ÇlÇr ÉSÉVÉbÉN", 20, 2, DX_FONTTYPE_ANTIALIASING_EDGE);
+	font = CreateFontToHandle("ÇlÇr ÉSÉVÉbÉN", 24, 2, DX_FONTTYPE_ANTIALIASING_EDGE);
 
 	char_pic = LoadGraph("./dat/img/char/face/shibuki.png");
 	enemy_pic[0] = LoadGraph("./dat/img/char/face/shunmin.png");
@@ -38,14 +38,14 @@ void Talk::draw() {
 		DrawGraph(Define::IN_X - 100, 200, char_pic, TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		DrawGraph(Define::CENTER_X - 50, 200, enemy_pic[face - 1], TRUE);
-		DrawStringToHandle(200, 600, str, GetColor(255, 100, 100), font);
+		DrawStringToHandle(50, 600, str, GetColor(255, 100, 100), font);
 	}
 	else if (ishuman == 2) { //é©ã@
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
 		DrawGraph(Define::CENTER_X - 50, 200, enemy_pic[face - 1], TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		DrawGraph(Define::IN_X - 100, 200, char_pic, TRUE);
-		DrawStringToHandle(200, 600, str, GetColor(100, 100, 255), font);
+		DrawStringToHandle(50, 600, str, GetColor(100, 100, 255), font);
 	}
 	else if (ishuman == 3) {
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);

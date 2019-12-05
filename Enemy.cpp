@@ -152,14 +152,14 @@ void Enemy::ini(int lev) {
 	count = -180;
 	time = -99;
 	graze = 0;
-	change = 0;
+	change = 100;
 	level = lev;
 	person_num = 0;
 	spell_num = 0;
 	hp = hp_max = 0;
-	move_flag = 0;
+	move_flag = 1;
 	_x = (float)Define::CENTER_X;
-	_y = 150.0f;
+	_y = -300.0f;
 	speed = 0.0f;
 	move_count = 0;
 	back = -1;
@@ -208,6 +208,10 @@ void Enemy::update(int damage, int talk_flag) {
 		}
 		if (hp == 0 && change == 1 && count == -120) {
 			if (person_num < ENEMY_MAX - 1) person_num++;
+			move((float)Define::CENTER_X, 150.0f, 60);
+		}
+		if (change == 100 && count == -120) {
+			change = 0;
 			move((float)Define::CENTER_X, 150.0f, 60);
 		}
 		if (move_flag == 2 && count == -90) move((float)Define::CENTER_X, 150.0f, 60);
