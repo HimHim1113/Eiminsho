@@ -7,33 +7,29 @@
 //OK
 void Enemy::enemy_pattern0000(float px, float py) {
 	if (count == 0) {
-		time = 35;
-		hp_max = 35000;
+		time = 30;
+		hp_max = 27500;
 		hp = hp_max;
 		flag = 1;
 		change = 2;
 		move_flag = 2;
 	}
 
-	int shot_count, shot_num1, shot_num2;
+	int shot_num1, shot_num2;
 	switch (level) {
 	case 0:
-		shot_count = 10;
 		shot_num1 = 6;
 		shot_num2 = 1;
 		break;
 	case 1:
-		shot_count = 10;
 		shot_num1 = 4;
 		shot_num2 = 2;
 		break;
 	case 2:
-		shot_count = 10;
 		shot_num1 = 4;
 		shot_num2 = 3;
 		break;
 	default:
-		shot_count = 60;
 		shot_num1 = 1;
 		shot_num2 = 1;
 		break;
@@ -44,7 +40,7 @@ void Enemy::enemy_pattern0000(float px, float py) {
 	if (count % 120 == 0 && count >= 120) move(115);
 	static float rang[3] = { GetRand(62831) / 10000.0f, GetRand(62831) / 10000.0f, GetRand(62831) / 10000.0f };
 
-	if (count % shot_count == 0) {
+	if (count % 10 == 0) {
 		for (int i = 0; i < shot_num1; i++) {
 			for (int j = 0; j < shot_num2; j++) {
 				if ((a = search_bull()) >= 0) {
@@ -53,8 +49,8 @@ void Enemy::enemy_pattern0000(float px, float py) {
 					bul[a].y = _y;
 					bul[a].vx = 0.0f;
 					bul[a].vy = 0.0f;
-					bul[a].spd = 3.0f + level * 0.5f - j;
-					bul[a].ang = Define::PI * 2.0f * i / shot_num1 + count / (77.7f + j * 10.0f) + rang[j];
+					bul[a].spd = 3.0f + level * 0.8f - j;
+					bul[a].ang = Define::PI * 2.0f * i / shot_num1 + count / (57.7f + j * 11.0f) + rang[j];
 					bul[a].knd = 3;
 					bul[a].col = (i % 2 == 0 ? 2 : 3);
 					bul[a].till = 300;
@@ -67,8 +63,8 @@ void Enemy::enemy_pattern0000(float px, float py) {
 					bul[a].y = _y;
 					bul[a].vx = 0.0f;
 					bul[a].vy = 0.0f;
-					bul[a].spd = 3.0f + level * 0.5f - j;
-					bul[a].ang = Define::PI * 2.0f * i / shot_num1 - count / (77.7f + j * 10.0f) + rang[j];
+					bul[a].spd = 3.0f + level * 0.8f - j;
+					bul[a].ang = Define::PI * 2.0f * i / shot_num1 - count / (57.7f + j * 11.0f) + rang[j];
 					bul[a].knd = 3;
 					bul[a].col = (i % 2 == 0 ? 5 : 7);
 					bul[a].till = 300;
@@ -87,7 +83,7 @@ void Enemy::enemy_pattern0000(float px, float py) {
 void Enemy::enemy_pattern0001(float px, float py) {
 	if (count == 0) {
 		time = 30;
-		hp_max = 25000;
+		hp_max = 20000;
 		hp = hp_max;
 		flag = 1;
 		change = 0;
@@ -98,13 +94,13 @@ void Enemy::enemy_pattern0001(float px, float py) {
 	int shot_count;
 	switch (level) {
 	case 0:
-		shot_count = 16;
+		shot_count = 20;
 		break;
 	case 1:
-		shot_count = 10;
+		shot_count = 12;
 		break;
 	case 2:
-		shot_count = 5;
+		shot_count = 6;
 		break;
 	default:
 		shot_count = 30;
@@ -162,10 +158,10 @@ void Enemy::enemy_pattern0002(float px, float py) {
 		shot_count = 20;
 		break;
 	case 1:
-		shot_count = 10;
+		shot_count = 12;
 		break;
 	case 2:
-		shot_count = 6;
+		shot_count = 8;
 		break;
 	default:
 		shot_count = 60;
@@ -230,7 +226,7 @@ void Enemy::enemy_pattern0002(float px, float py) {
 void Enemy::enemy_pattern0003(float px, float py) {
 	if (count == 0) {
 		time = 30;
-		hp_max = 30000;
+		hp_max = 25000;
 		hp = hp_max;
 		flag = 1;
 		change = 0;
@@ -241,17 +237,17 @@ void Enemy::enemy_pattern0003(float px, float py) {
 	switch (level) {
 	case 0:
 		shot_count = 90;
-		shot_num1 = 16;
+		shot_num1 = 12;
 		shot_num2 = 1;
 		break;
 	case 1:
-		shot_count = 60;
+		shot_count = 70;
 		shot_num1 = 16;
 		shot_num2 = 2;
 		break;
 	case 2:
 		shot_count = 50;
-		shot_num1 = 24;
+		shot_num1 = 20;
 		shot_num2 = 3;
 		break;
 	default:
@@ -354,7 +350,7 @@ void Enemy::enemy_pattern0004(float px, float py) {
 		shot_num = 28;
 		break;
 	case 2:
-		shot_num = 48;
+		shot_num = 40;
 		break;
 	default:
 		shot_num = 2;
@@ -398,7 +394,7 @@ void Enemy::enemy_pattern0004(float px, float py) {
 				bul[a].till = 0;
 				bul[a].grz = 1;
 				bul[a].cnt = 0;
-				bul[a].sta = count % 10 == 0 ? 1 : 0;
+				bul[a].sta = count % 12 == 0 ? 1 : 0;
 			}
 		}
 		DxLib::PlaySoundMem(sound_shot1, DX_PLAYTYPE_BACK);
@@ -435,7 +431,7 @@ void Enemy::enemy_pattern0004(float px, float py) {
 void Enemy::enemy_pattern0005(float px, float py) {
 	if (count == 0) {
 		time = 30;
-		hp_max = 30000;
+		hp_max = 25000;
 		hp = hp_max;
 		flag = 1;
 		change = 0;
@@ -453,7 +449,7 @@ void Enemy::enemy_pattern0005(float px, float py) {
 		shot_num2 = 3;
 		break;
 	case 2:
-		shot_num1 = 6;
+		shot_num1 = 5;
 		shot_num2 = 4;
 		break;
 	default:
@@ -584,7 +580,7 @@ void Enemy::enemy_pattern0006(float px, float py) {
 
 	for (int i = 0; i < 4; i++) {
 		if (num[i] >= 0 && bul[num[i]].fl == 3) {
-			if (bul[num[i]].cnt >= 60 && count % 8 == 0) {
+			if (bul[num[i]].cnt >= 60 && count % 10 == 0) {
 				if (bul[num[i]].x > -10 && bul[num[i]].x < Define::OUT_W + 10 && bul[num[i]].y > -10 && bul[num[i]].y < Define::OUT_H + 10) {
 					for (int j = 0; j < shot_num; j++) {
 						if ((a = search_bull()) >= 0) {
@@ -594,7 +590,7 @@ void Enemy::enemy_pattern0006(float px, float py) {
 							bul[a].vx = 0.0f;
 							bul[a].vy = 0.0f;
 							bul[a].spd = 4.0f;
-							bul[a].ang = Define::PI * 2.0f * j / shot_num + count / 33.0f + bul[num[i]].sta / 10000.0f;
+							bul[a].ang = Define::PI * 2.0f * j / shot_num + count / 37.0f + bul[num[i]].sta / 10000.0f;
 							bul[a].knd = 13;
 							bul[a].col = GetRand(7);
 							bul[a].till = 10;
@@ -617,7 +613,7 @@ void Enemy::enemy_pattern0006(float px, float py) {
 void Enemy::enemy_pattern0007(float px, float py) {
 	if (count == 0) {
 		time = 30;
-		hp_max = 30000;
+		hp_max = 25000;
 		hp = hp_max;
 		flag = 1;
 		change = 0;
@@ -630,13 +626,13 @@ void Enemy::enemy_pattern0007(float px, float py) {
 	int shot_count;
 	switch (level) {
 	case 0:
-		shot_count = 4;
+		shot_count = 9;
 		break;
 	case 1:
-		shot_count = 2;
+		shot_count = 5;
 		break;
 	case 2:
-		shot_count = 1;
+		shot_count = 2;
 		break;
 	default:
 		shot_count = 10;
@@ -648,7 +644,7 @@ void Enemy::enemy_pattern0007(float px, float py) {
 	if (count % 300 == 210) move(60);
 
 	if (count % shot_count == 0) {
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 8; i++) {
 			if ((a = search_bull()) >= 0) {
 				bul[a].fl = 1;
 				bul[a].x = _x;
@@ -685,8 +681,8 @@ void Enemy::enemy_pattern0008(float px, float py) {
 	int shot_num1, shot_num2;
 	switch (level) {
 	case 0:
-		shot_num1 = 8;
-		shot_num2 = 3;
+		shot_num1 = 10;
+		shot_num2 = 2;
 		break;
 	case 1:
 		shot_num1 = 12;
@@ -821,21 +817,21 @@ void Enemy::enemy_pattern0009(float px, float py) {
 	int shot_num[4];
 	switch (level) {
 	case 0:
-		shot_num[0] = 4;
+		shot_num[0] = 3;
 		shot_num[1] = 3;
-		shot_num[2] = 3;
+		shot_num[2] = 2;
 		shot_num[3] = 1;
 		break;
 	case 1:
-		shot_num[0] = 5;
+		shot_num[0] = 4;
 		shot_num[1] = 5;
-		shot_num[2] = 5;
+		shot_num[2] = 4;
 		shot_num[3] = 1;
 		break;
 	case 2:
-		shot_num[0] = 7;
+		shot_num[0] = 6;
 		shot_num[1] = 8;
-		shot_num[2] = 8;
+		shot_num[2] = 6;
 		shot_num[3] = 2;
 		break;
 	default:
@@ -1183,30 +1179,30 @@ void Enemy::enemy_pattern0010(float px, float py) {
 		shot_count[1] = 150;
 		shot_count[2] = 300;
 		shot_count[3] = 300;
-		shot_num[0] = 5;
-		shot_num[1] = 8;
+		shot_num[0] = 4;
+		shot_num[1] = 4;
 		shot_num[2] = 2;
-		shot_num[3] = 4;
+		shot_num[3] = 1;
 		break;
 	case 1:
 		shot_count[0] = 50;
 		shot_count[1] = 120;
 		shot_count[2] = 240;
 		shot_count[3] = 420;
-		shot_num[0] = 6;
-		shot_num[1] = 12;
+		shot_num[0] = 5;
+		shot_num[1] = 8;
 		shot_num[2] = 4;
-		shot_num[3] = 6;
+		shot_num[3] = 3;
 		break;
 	case 2:
 		shot_count[0] = 30;
 		shot_count[1] = 90;
 		shot_count[2] = 180;
 		shot_count[3] = 540;
-		shot_num[0] = 8;
-		shot_num[1] = 24;
-		shot_num[2] = 7;
-		shot_num[3] = 8;
+		shot_num[0] = 6;
+		shot_num[1] = 12;
+		shot_num[2] = 6;
+		shot_num[3] = 6;
 		break;
 	default:
 		shot_count[0] = 300;
@@ -1362,7 +1358,7 @@ void Enemy::enemy_pattern0010(float px, float py) {
 			int way = (count % (shot_count[2] * 2) < shot_count[2] ? 1 : -1);
 			if (hp <= hp_max * 2 / 3 || time < 90) shot_num[2]++;
 			if (hp <= hp_max / 3 || time < 60) shot_num[2]++;
-			if (count % 8 == 0) {
+			if (count % 10 == 0) {
 				for (int i = 0; i < shot_num[2]; i++) {
 					if ((a = search_bull()) >= 0) {
 						bul[a].fl = 1;
@@ -1371,7 +1367,7 @@ void Enemy::enemy_pattern0010(float px, float py) {
 						bul[a].vx = 0.0f;
 						bul[a].vy = 0.0f;
 						bul[a].spd = 5.0f;
-						bul[a].ang = Define::PI * 2.0f * i / shot_num[2] + way * count / 27.0f + fam[2].sta / 10000.0f;
+						bul[a].ang = Define::PI * 2.0f * i / shot_num[2] + way * count / 31.0f + fam[2].sta / 10000.0f;
 						bul[a].knd = 13;
 						bul[a].col = GetRand(7);
 						bul[a].till = 0;
